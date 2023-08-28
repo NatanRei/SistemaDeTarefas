@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Refit;
 using SistemaDeTarefas.Data;
+using SistemaDeTarefas.Integration;
+using SistemaDeTarefas.Integration.Interfaces;
+using SistemaDeTarefas.Integration.Refit;
 using SistemaDeTarefas.Repositories;
 using SistemaDeTarefas.Repositories.Interfaces;
 
@@ -25,7 +29,13 @@ namespace SistemaDeTarefas
 
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             builder.Services.AddScoped<ITarefaRepository, TarefaRepository>();
+            builder.Services.AddScoped<IViaCepIntegracao, ViaCepIntegracao>();
 
+
+            builder.Services.AddRefitClient<IViaCepIntegracaoRefit>().ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri("https://viacep.com.br");
+            });
 
             var app = builder.Build();
 
