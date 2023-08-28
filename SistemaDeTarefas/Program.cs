@@ -24,6 +24,8 @@ namespace SistemaDeTarefas
                 );
 
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            builder.Services.AddScoped<ITarefaRepository, TarefaRepository>();
+
 
             var app = builder.Build();
 
